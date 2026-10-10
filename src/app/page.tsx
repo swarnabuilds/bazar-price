@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import UpProduct from "@/components/UpProduct";
+import DownProduct from "@/components/DownProduct";
 
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <div>
       <Banner />
       <UpProduct />
+      <DownProduct />
     </div>
   );
 }
