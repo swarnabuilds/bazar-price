@@ -62,16 +62,35 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Right Side: Auth Buttons */}
+        {/* Right Side: Auth Buttons & Profile Info */}
         {session?.user ? (
           <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold text-slate-700">
-              {session?.user?.name}
-            </span>
+            {/* User Profile Link with Avatar and Name */}
+            <Link 
+              href="/profile" 
+              className="flex items-center gap-2.5 group cursor-pointer"
+            >
+              <div className="w-9 h-9 rounded-full overflow-hidden bg-emerald-600 border border-emerald-500 relative flex items-center justify-center text-sm font-bold text-white shadow-2xs group-hover:ring-2 group-hover:ring-emerald-600/20 transition-all">
+                {session?.user?.image ? (
+                  <Image
+                    src={session.user.image}
+                    alt={session.user.name || "User"}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <span className="uppercase">{session?.user?.name?.[0] || "👤"}</span>
+                )}
+              </div>
+              
+              <span className="text-sm font-semibold text-slate-700 group-hover:text-emerald-600 transition-colors">
+                {session?.user?.name}
+              </span>
+            </Link>
 
             <button
               onClick={hamdelSignOut}
-              className=" btn btn-sm btn-outline border-slate-300 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-300 text-slate-600 rounded-lg font-medium normal-case"
+              className="btn btn-sm btn-outline border-slate-300 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-300 text-slate-600 rounded-lg font-medium normal-case"
             >
               সাইন আউট
             </button>
@@ -95,7 +114,7 @@ const Navbar = () => {
         )}
 
       </div>
-      <MenuCategories></MenuCategories>
+      <MenuCategories />
     </header>
   );
 };
