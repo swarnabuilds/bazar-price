@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 বাজার দর (BazarDam)
 
-## Getting Started
+"বাজার দর" (BazarDam) হলো একটি আধুনিক এবং ডাটা-চালিত ওয়েব অ্যাপ্লিকেশন, যার মাধ্যমে ব্যবহারকারীরা সহজেই নিত্যপ্রয়োজনীয় পণ্যের আজকের বাজারদর, মূল্য পরিবর্তন (বৃদ্ধিস বা হ্রাস) এবং বিভিন্ন ক্যাটাগরির পণ্যের রিয়েল-টাইম তুলনা দেখতে পারেন। 
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 ব্যবহৃত প্রযুক্তি (Technologies Used)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Framework:** Next.js (App Router)
+* **Styling:** Tailwind CSS, DaisyUI
+* **Authentication:** Better Auth (Google/GitHub OAuth & Email/Password, Middleware Protection)
+* **API Integration:** Programming Hero API
+* **Icons & UI Enhancements:** React Icons, React Hot Toast
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ ৫টি মূল বৈশিষ্ট্য (Key Features)
 
-## Learn More
+1. **রিয়েল-টাইম বাজার দর ও ক্যাটাগরি ব্রাউজিং:** Programming Hero API থেকে ডাইনামিক ক্যাটাগরি ও পণ্যের লাইভ মূল্যতালিকা প্রদর্শন।
+2. **স্মার্ট প্রাইস সোর্টিং:** ব্যবহারকারীরা নিজেদের পছন্দমতো পণ্যের দাম **কম থেকে বেশি** কিংবা **বেশি থেকে কম** ক্রমানুসারে সাজাতে (Sort) পারেন।
+3. **নিরাপদ অথেন্টিকেশন ও প্রোফাইল ম্যানেজমেন্ট:** Better Auth-এর মাধ্যমে Google/GitHub সোশ্যাল লগইন এবং ইমেইল-পাসওয়ার্ড সাইন-ইন সিস্টেম, সাথে সুরক্ষিত রাউট (Middleware)।
+4. **ডাইনামিক ইউজার ইন্টারফেস:** বাংলা তারিখ ফরম্যাটিং, রেসপন্সিভ কার্ড লেআউট এবং টোস্ট নোটিফিকেশন (`react-hot-toast`) যুক্ত চমৎকার ইউজার এক্সপেরিয়েন্স।
+5. **ইউজার প্রফাইল আপডেট:** ব্যবহারকারীরা তাদের প্রোফাইলে প্রবেশ করে নিজেদের নাম ও অ্যাকাউন্টের তথ্য সহজে আপডেট করতে পারেন।
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ প্রজেক্ট রান করার নিয়ম (Getting Started)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+প্রজেক্টটি লোকালি রান করতে নিচের ধাপগুলো অনুসরণ করুন:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. প্রজেক্ট ফোল্ডারে টার্মিনাল ওপেন করুন।
+2. ডিপেন্ডেন্সি ইনস্টল করুন:
+   ```bash
+   npm install

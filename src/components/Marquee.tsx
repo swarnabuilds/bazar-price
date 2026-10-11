@@ -1,6 +1,6 @@
 import MarqueeText from 'react-marquee-text';
 import "react-marquee-text/dist/styles.css"
-
+import Link from 'next/link';
 
 interface Product {
   id: number;
@@ -31,8 +31,13 @@ const Marquee = async () => {
                 key={product.id || product.slug}
                 className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-slate-200/60 shadow-2xs shrink-0 text-xs sm:text-sm"
               >
-                {/* 1. Name */}
-                <span className="font-bold text-slate-800">{product.nameBn}</span>
+                {/* 1. Name with Link */}
+                <Link 
+                  href={`/product/${product.id}`}
+                  className="font-bold text-slate-800 hover:text-emerald-600 transition-colors"
+                >
+                  {product.nameBn}
+                </Link>
 
                 {/* 2. Today Price */}
                 <span className="text-slate-600">

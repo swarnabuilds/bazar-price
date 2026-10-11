@@ -1,4 +1,7 @@
+"use client";
+
 import ProductCard from "@/components/ProductCard";
+import { useState, useEffect, use } from "react";
 
 interface Product {
   id: number;
@@ -15,23 +18,55 @@ interface Product {
   };
 }
 
-export default async function CategoryProductsPage({
+export default function CategoryProductsPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const resolvedParams = use(params);
+  const slug = resolvedParams.slug;
 
-  const res = await fetch(`https://openapi.programming-hero.com/api/bazardor/products?category=${slug}`, {
-    cache: "no-store",
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [sortOrder, setSortOrder] = useState("default");
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/bazardor/products?category=${slug}`);
+        const data = await res.json();
+        const proList = Array.isArray(data) ? data : data.products || [];
+        setProducts(proList);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProducts();
+  }, [slug]);
+
+  // Sorting Logic (দাম অনুযায়ী সাজানো)
+  const sortedProducts = [...products].sort((a, b) => {
+    if (sortOrder === "low-high") {
+      return a.today - b.today; // কম থেকে বেশি
+    } else if (sortOrder === "high-low") {
+      return b.today - a.today; // বেশি থেকে কম
+    }
+    return 0; // ডিফল্ট
   });
-  const data = await res.json();
-  const products: Product[] = Array.isArray(data) ? data : data.products || [];
 
-  // কোনো array index (0) ছাড়াই সহজভাবে প্রথম মেলা প্রোডাক্ট নেওয়া
   const firstProduct = products.find((item) => item.categoryNameBn);
   const categoryTitle = firstProduct?.categoryNameBn || slug;
   const categoryIcon = firstProduct?.categoryIcon || "🍚";
+
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <p className="text-slate-500 font-medium">লোড হচ্ছে...</p>
+      </div>
+    );
+  }
 
   return (
     <main className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-6">
@@ -53,8 +88,14 @@ export default async function CategoryProductsPage({
         <div></div>
         <div className="flex items-center gap-2 text-sm text-slate-600">
           <span className="font-medium">সাজান</span>
-          <select className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 outline-none font-medium cursor-pointer">
+          <select 
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+            className="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 outline-none font-medium cursor-pointer"
+          >
             <option value="default">ডিফল্ট</option>
+            <option value="low-high">দাম: কম থেকে বেশি</option>
+            <option value="high-low">দাম: বেশি থেকে কম</option>
           </select>
         </div>
       </div>
@@ -62,14 +103,14 @@ export default async function CategoryProductsPage({
       {/* Total count message */}
       <div className="mb-4">
         <p className="text-sm text-slate-600 font-medium">
-          মোট {products.length}টি পণ্য দেখানো হচ্ছে
+          মোট {sortedProducts.length}টি পণ্য দেখানো হচ্ছে
         </p>
       </div>
 
       {/* Product Grid */}
-      {products.length > 0 ? (
+      {sortedProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {products.map((pro) => (
+          {sortedProducts.map((pro) => (
             <ProductCard key={pro.id || pro.slug} pro={pro} />
           ))}
         </div>
